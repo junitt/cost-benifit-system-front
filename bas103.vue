@@ -38,15 +38,18 @@
 						<div class="modal-header">{{mdalTitel}}</div>
 						<div class="modal-body">
 	    				<Form class="modal-form" ref="formValidate" :model="formValidate" :label-width="85">
-				        <FormItem label="版本号" prop="UnitId" class="formItem">
-				            <Input v-model="formValidate.UnitId" placeholder="请填写单位代码"></Input>
+				        <FormItem label="版本号" prop="code" class="formItem">
+				            <Input v-model="formValidate.code" placeholder="请填写单位代码"></Input>
 				        </FormItem>
-				        <FormItem label="项目节点" prop="UnitIdName" class="formItem">
-				            <Input v-model="formValidate.UnitIdName" placeholder="请填写单位名称"></Input>
+				        <FormItem label="项目节点" prop="name" class="formItem">
+				            <Input v-model="formValidate.name" placeholder="请填写单位名称"></Input>
 				        </FormItem>
-				        <FormItem label="版本名称" prop="palntcode" class="formItem">
-				            <Input v-model="formValidate.palntcode" placeholder="请填写发工厂代码"></Input>
+				        <FormItem label="版本名称" prop="itemName" class="formItem">
+				            <Input v-model="formValidate.itemName" placeholder="请填写发工厂代码"></Input>
 				        </FormItem>
+                <FormItem label="项目名称" prop="itName" class="formItem">
+                  <Input v-model="formValidate.itName" placeholder="请填写项目名称"></Input>
+                </FormItem>
 				    	</Form>
 	    			</div>
 	    			<div class="modal-footer">
@@ -64,9 +67,10 @@ export default {
   data () {
     return {
       formValidate: {
-        UnitId: '',
-        UnitIdName: '',
-        palntcode: '',
+        code: '',
+        name: '',
+        itemName: '',
+        itName: ''
       },
       mdalTitel: '新增',
       company: '',
@@ -77,57 +81,57 @@ export default {
       rowData: '',
       columns0: [
         {title: 'id', key: 'id', width: '70px'},
-        {title: '单位代码', key: 'UnitId'},
-        {title: '单位名称', key: 'UnitIdName'},
-        {title: '项目代码', key: 'palntcode'},
-        {title: '项目名称', key: 'palntname'},
-        {title: '项目说明', key: 'Location'},
-        {title: '归档标识', key: 'Capacity'}],
+        {title: '单位代码', key: 'code'},
+        {title: '单位名称', key: 'name'},
+        {title: '项目名称', key: 'itemName'},
+        {title: '项目类型', key: 'itemType'},
+        {title: '对应车系', key: 'carseries'},
+        {title: '归档标识', key: 'capacity'}],
       data0: [
         {
           id: '1001',
-          UnitId: '1005',
-          UnitIdName: '奔腾450',
-          palntcode: 'B502',
-          palntname: '1.6L',
-          Location: '1005',
-          Capacity: 'B502'
+          code: '1005',
+          name: '奔腾450',
+          itemName: 'B502',
+          itemType: '1.6L',
+          carseries: '1005',
+          capacity: 'B502'
         },
         {
           id: '1004',
-          UnitId: '1005',
-          UnitIdName: '奔腾450',
-          palntcode: 'B502',
-          palntname: '1.6L',
-          Location: '1005',
-          Capacity: '奔腾450',
+          code: '1005',
+          name: '奔腾450',
+          itemName: 'B502',
+          itemType: '1.6L',
+          carseries: '1005',
+          capacity: '奔腾450'
         }],
       columns: [
         {title: 'id', key: 'id', width: '70px'},
-        {title: '版本号', key: 'UnitId'},
-        {title: '项目节点', key: 'UnitIdName'},
-        {title: '版本名称', key: 'palntcode'},
-        {title: '版本说明', key: 'palntname'},
-        {title: '是否正式版本', key: 'Location'},
-        {title: '创建日期', key: 'Capacity'}],
+        {title: '版本号', key: 'unitId'},
+        {title: '项目节点', key: 'unitName'},
+        {title: '版本名称', key: 'plantName'},
+        {title: '版本说明', key: 'planeCode'},
+        {title: '是否正式版本', key: 'location'},
+        {title: '创建日期', key: 'date'}],
       data: [
         {
           id: '1',
-          UnitId: '201703001',
-          UnitIdName: '项目前提',
-          palntcode: 'D015-项目前提-20170302',
-          palntname: '',
-          Location: '是',
-          Capacity: '2017/03/02'
+          unitId: '201703001',
+          unitName: '项目前提',
+          plantName: 'D015-项目前提-20170302',
+          planeCode: '',
+          location: '是',
+          date: '2017/03/02'
         },
         {
           id: '1',
-          UnitId: '201703001',
-          UnitIdName: '项目前提',
-          palntcode: 'D015-项目前提-20170302',
-          palntname: '',
-          Location: '是',
-          Capacity: '2017/03/02'
+          unitId: '201703001',
+          unitName: '项目前提',
+          plantName: 'D015-项目前提-20170302',
+          planeCode: '',
+          location: '是',
+          date: '2017/03/02'
         }]
     }
   },
@@ -138,12 +142,12 @@ export default {
     // response.data: {
     //  date:[{
     //  id: '1001',
-    //  UnitId: '1005',
-    //  UnitIdName: '奔腾450',
-    //  palntcode: 'B502',
-    //  palntname: '1.6L',
-    //  Location: '1005',
-    //  Capacity: 'B502'
+    //  code: '1005',
+    //  name: '奔腾450',
+    //  itemName: 'B502',
+    //  itemType: '1.6L',
+    //  carseries: '1005',
+    //  capacity: 'B502'
     //  }...]
     // }
     search () {
@@ -151,9 +155,10 @@ export default {
       // date{
       // company:
       // item:
+      // }
       let date = {
         company: this.company,
-        item: this.item,
+        item: this.item
       }
       this.$axios.post('http://localhost:8080/yf-project-base/itemversion/search', date).then(response => {
         console.log(response.data)
@@ -167,9 +172,9 @@ export default {
     },
     add () {
       this.mdalTitel = '新增'
-      this.formValidate.UnitId = ''
-      this.formValidate.UnitIdName = ''
-      this.formValidate.palntcode = ''
+      this.formValidate.code = ''
+      this.formValidate.name = ''
+      this.formValidate.itemName = ''
       this.show = true
     },
     getRow (data) {
@@ -178,7 +183,7 @@ export default {
     },
     Delete () {
       let date = {
-        UnitId: this.rowData.UnitId
+        code: this.rowData.code
       }
       console.log(date)
       this.$axios.post('http://localhost:8080/yf-project-base/itemversion/remove', date).then(response => {
@@ -188,20 +193,14 @@ export default {
     },
     save () {
       console.log(this.formValidate)
-      console.log(this.formValidate.uId)
-      if (true) {
-        this.$axios.post('http://localhost:8080/yf-project-base/itemversion/add', this.formValidate).then(response => {
+      console.log(this.formValidate.code)
+      let date = this.formValidate
+      if (this.formValidate.code === '') {
+        this.$axios.post('http://localhost:8080/yf-project-base/itemversion/add', date).then(response => {
           this.search()
           this.$Message.info('保存成功')
         })
       } else {
-        // date示例
-        // date{
-        // UnitId: '201703001'
-        // UnitIdName: '项目前提'
-        // palntcode: 'D015-项目前提-20170302'
-        // }
-        var date = [this.formValidate]
         this.$axios.post('http://localhost:8080/yf-project-base/itemversion/modify', date).then(response => {
           this.search()
           this.$Message.info('修改成功')
@@ -209,8 +208,24 @@ export default {
       }
       this.show = false
     },
+    getCompanyList () {
+      console.log('getCompanyList')
+      this.$axios.post('http://localhost:8080/yf-project-base/company/list', {}).then(response => {
+        console.log(response.data)
+        this.menuList = response.data.date
+      })
+    },
+    getItemList () {
+      console.log('getItemList')
+      this.$axios.post('http://localhost:8080/yf-project-base/item/list', {}).then(response => {
+        console.log(response.data)
+        this.menuList = response.data.date
+      })
+    },
     mounted () {
       this.search()
+      this.getCompanyList()
+      this.getItemList()
     }
   }
 }
